@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+}
+
+enum RoomStatus {
+  AVAILABLE
+  FULL
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role      Role     @default(STUDENT)
+  name      String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  studentProfile StudentProfile?
+  payments       Payment[]
+}
+
+model StudentProfile {
+  id             Int       @id @default(autoincrement())
+  userId         Int       @unique
+  user           User      @relation(fields: [userId], references: [id])
+  enrollmentNo   String    @unique
+  roomId         Int?
+  room           Room?     @relation(fields: [roomId], references: [id])
+  checkRecords   CheckRecord[]
+}
+
+model Room {
+  id          Int       @id @default(autoincrement())
+  roomNumber  String    @unique
+  capacity    Int       @default(2)
+  status      RoomStatus @default(AVAILABLE)
+  
+  students    StudentProfile[]
+}
+
+enum CheckType {
+  CHECK_IN
+  CHECK_OUT
+}
+
+model CheckRecord {
+  id               Int            @id @default(autoincrement())
+  studentProfileId Int
+  studentProfile   StudentProfile @relation(fields: [studentProfileId], references: [id])
+  type             CheckType
+  timestamp        DateTime       @default(now())
+  remarks          String?
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+model Payment {
+  id              Int           @id @default(autoincrement())
+  userId          Int
+  user            User          @relation(fields: [userId], references: [id])
+  amount          Float
+  status          PaymentStatus @default(PENDING)
+  razorpayOrderId String?       @unique
+  razorpayPaymentId String?     @unique
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
