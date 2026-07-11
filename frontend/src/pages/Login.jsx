@@ -57,7 +57,7 @@ export default function Login() {
             <p className="text-center text-sm text-gray-400 mb-1">Recruiter / Testing Access:</p>
             <button 
               type="button" 
-              onClick={() => handleDemoLogin('admin@hostel.com', 'admin123')}
+              onClick={() => handleDemoLogin('demo.admin@nitdgp.ac.in', 'HostelAdmin@2026')}
               className="btn-primary w-full"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'white', border: '1px solid rgba(255, 255, 255, 0.2)' }}
             >
