@@ -21,6 +21,21 @@ export default function Login() {
     }
   };
 
+  const handleDemoLogin = async (demoEmail, demoPassword) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
+    try {
+      const res = await api.post('/auth/login', { email: demoEmail, password: demoPassword });
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      
+      if (res.data.user.role === 'ADMIN') navigate('/admin');
+      else navigate('/student');
+    } catch (error) {
+      alert('Login failed: ' + (error.response?.data?.error || 'Server error'));
+    }
+  };
+
   return (
     <div className="app-container">
       <main className="main-content flex flex-col items-center justify-center animate-fade-in">
@@ -37,6 +52,26 @@ export default function Login() {
             </div>
             <button type="submit" className="btn-primary mt-4">Log In</button>
           </form>
+
+          <div className="mt-6 flex flex-col gap-3 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <p className="text-center text-sm text-gray-400 mb-1">Recruiter / Testing Access:</p>
+            <button 
+              type="button" 
+              onClick={() => handleDemoLogin('admin@hostel.com', 'admin123')}
+              className="btn-primary w-full"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'white', border: '1px solid rgba(255, 255, 255, 0.2)' }}
+            >
+              🚀 Login as Demo Admin
+            </button>
+            <button 
+              type="button" 
+              onClick={() => handleDemoLogin('anjali0@hostel.com', 'student123')}
+              className="btn-primary w-full"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'white', border: '1px solid rgba(255, 255, 255, 0.2)' }}
+            >
+              🎓 Login as Demo Student
+            </button>
+          </div>
         </div>
       </main>
     </div>
