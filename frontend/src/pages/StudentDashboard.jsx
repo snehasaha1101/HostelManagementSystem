@@ -57,6 +57,7 @@ export default function StudentDashboard() {
     try {
       await api.post('/students/check', { studentProfileId: profile.id, type, remarks: `Student self-${type.toLowerCase().replace('_', '-')}` });
       alert(`Successfully logged ${type.replace('_', ' ')}!`);
+      fetchProfile();
     } catch (error) {
       alert('Failed to log action');
     }
@@ -93,11 +94,21 @@ export default function StudentDashboard() {
 
                 {profile.room && (
                   <div className="flex gap-4 mt-6">
-                    <button onClick={() => handleCheckInOut('CHECK_IN')} className="btn-primary" style={{ background: 'linear-gradient(135deg, var(--success) 0%, #059669 100%)' }}>
-                      Check In
+                    <button 
+                      onClick={() => handleCheckInOut('CHECK_IN')} 
+                      className="btn-primary" 
+                      style={{ background: 'linear-gradient(135deg, var(--success) 0%, #059669 100%)' }}
+                      disabled={profile.checkRecords?.[0]?.type === 'CHECK_IN'}
+                    >
+                      {profile.checkRecords?.[0]?.type === 'CHECK_IN' ? 'Checked In' : 'Check In'}
                     </button>
-                    <button onClick={() => handleCheckInOut('CHECK_OUT')} className="btn-secondary" style={{ color: 'var(--warning)', borderColor: 'var(--warning)' }}>
-                      Check Out
+                    <button 
+                      onClick={() => handleCheckInOut('CHECK_OUT')} 
+                      className="btn-secondary" 
+                      style={{ color: 'var(--warning)', borderColor: 'var(--warning)' }}
+                      disabled={!profile.checkRecords || profile.checkRecords?.[0]?.type === 'CHECK_OUT'}
+                    >
+                      {profile.checkRecords?.[0]?.type === 'CHECK_OUT' ? 'Checked Out' : 'Check Out'}
                     </button>
                   </div>
                 )}

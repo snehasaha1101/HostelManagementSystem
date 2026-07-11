@@ -11,7 +11,11 @@ router.get('/profile/:userId', async (req, res) => {
       where: { userId },
       include: { 
         room: true,
-        user: { include: { payments: true } }
+        user: { include: { payments: true } },
+        checkRecords: {
+          orderBy: { timestamp: 'desc' },
+          take: 1
+        }
       }
     });
     res.json(profile || { nullProfile: true });
