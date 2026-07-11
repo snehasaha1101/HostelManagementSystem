@@ -1,6 +1,9 @@
 # Hostel Management System
 
+🚀 **[View Live Demo](https://hostel-management-system-fhgiqxdw2-snehas-projects-520d58ef.vercel.app)** | ⚙️ **[Backend API](https://hostelmanagementsystem-skqq.onrender.com)**
+
 A full-stack, database-driven web application designed to streamline hostel operations. It replaces manual, paper-based processes with an efficient digital platform for room allocation, fee payment tracking, and real-time student check-in/check-out monitoring.
+
 
 ## Features
 - **Role-Based Dashboards**: Secure, distinct portals for Admins and Students.
