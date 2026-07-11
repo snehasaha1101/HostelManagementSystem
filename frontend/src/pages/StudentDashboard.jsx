@@ -45,6 +45,9 @@ export default function StudentDashboard() {
       // Verify mock payment immediately
       await api.post('/payments/verify', { paymentId });
       alert('Payment of ₹' + amount + ' was successful!');
+      
+      // Refresh the profile so the UI instantly updates to 'Paid'
+      fetchProfile();
     } catch (error) {
       alert('Payment failed');
     }
