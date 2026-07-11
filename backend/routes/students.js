@@ -9,7 +9,10 @@ router.get('/profile/:userId', async (req, res) => {
     const userId = parseInt(req.params.userId);
     const profile = await prisma.studentProfile.findUnique({
       where: { userId },
-      include: { room: true }
+      include: { 
+        room: true,
+        user: { include: { payments: true } }
+      }
     });
     res.json(profile || { nullProfile: true });
   } catch (error) {

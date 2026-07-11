@@ -108,11 +108,24 @@ export default function StudentDashboard() {
                 <div className="flex items-end gap-4">
                   <div className="input-group" style={{ marginBottom: 0, width: '200px' }}>
                     <label className="input-label">Amount (₹)</label>
-                    <input type="number" className="input-field" value={amount} onChange={e => setAmount(e.target.value)} min="1" />
+                    <input 
+                      type="number" 
+                      className="input-field" 
+                      value={amount} 
+                      onChange={e => setAmount(e.target.value)} 
+                      min="1" 
+                      disabled={profile.user?.payments?.some(p => p.status === 'COMPLETED')}
+                    />
                   </div>
-                  <button onClick={handlePayment} className="btn-primary" style={{ height: '46px', background: 'linear-gradient(135deg, var(--success) 0%, #059669 100%)' }}>
-                    Pay Now
-                  </button>
+                  {profile.user?.payments?.some(p => p.status === 'COMPLETED') ? (
+                    <button disabled className="btn-secondary" style={{ height: '46px', opacity: 0.7, cursor: 'not-allowed' }}>
+                      Paid
+                    </button>
+                  ) : (
+                    <button onClick={handlePayment} className="btn-primary" style={{ height: '46px', background: 'linear-gradient(135deg, var(--success) 0%, #059669 100%)' }}>
+                      Pay Now
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
