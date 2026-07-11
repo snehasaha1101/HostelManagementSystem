@@ -54,14 +54,14 @@ export default function Login() {
           </form>
 
           <div className="mt-6 flex flex-col gap-3 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }}>
-            <p className="text-center text-sm text-gray-400 mb-1">Recruiter / Testing Access:</p>
+            <p className="text-center text-sm text-gray-400 mb-1">Testing Access:</p>
             <button 
               type="button" 
               onClick={() => handleDemoLogin('demo.admin@nitdgp.ac.in', 'HostelAdmin@2026')}
               className="btn-primary w-full"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'white', border: '1px solid rgba(255, 255, 255, 0.2)' }}
             >
-              🚀 Login as Demo Admin
+              Login as Demo Admin
             </button>
             <button 
               type="button" 
@@ -69,7 +69,7 @@ export default function Login() {
               className="btn-primary w-full"
               style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'white', border: '1px solid rgba(255, 255, 255, 0.2)' }}
             >
-              🎓 Login as Demo Student
+              Login as Demo Student
             </button>
           </div>
         </div>
